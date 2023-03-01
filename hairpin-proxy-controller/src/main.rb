@@ -50,7 +50,7 @@ class HairpinProxyController
     rewrite_lines = hosts.map { |host| "    rewrite name #{host} #{DNS_REWRITE_DESTINATION} #{COMMENT_LINE_SUFFIX}" }
 
     # Inject at the start of the main ".:53 { ... }" configuration block
-    main_server_line = cflines.index { |line| line.strip.start_with?(".:53 {") }
+    main_server_line = cflines.index { |line| line.strip.start_with?(".:8053 {") }
     raise "Can't find main server line! '.:53 {' in Corefile" if main_server_line.nil?
     cflines.insert(main_server_line + 1, *rewrite_lines)
 
